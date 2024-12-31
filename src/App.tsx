@@ -12,18 +12,17 @@ function App() {
   const [pets, setPets] = useState<PetsType[]>([]);
 
   useEffect(() => {
-    async function requestPets() {
-      const res = await fetch(
-        `http://pets-v2.dev-apis.com/pets?animal=${animal}&location=${location}&breed=${breed}`
-      );
-      const json = await res.json();
-
-      setPets(json.pets);
-    }
-    requestPets();
+    // requestPets();
   }, [animal]);
 
-  console.log(pets);
+  async function requestPets() {
+    const res = await fetch(
+      `http://pets-v2.dev-apis.com/pets?animal=${animal}&location=${location}&breed=${breed}`
+    );
+    const json = await res.json();
+
+    setPets(json.pets);
+  }
 
   return (
     <>
@@ -31,6 +30,7 @@ function App() {
         <form
           onSubmit={(e) => {
             e.preventDefault();
+            requestPets();
           }}
         >
           <div className=" my-6 flex justify-around   ">
